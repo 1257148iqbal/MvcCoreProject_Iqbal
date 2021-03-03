@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MvcCoreProject_Iqbal.Models.Trainee>
+
+    <div>
+
+        <h1 class="text-center"><i class="fas fa-comments-dollar text-success"></i> Trainee Record</h1>
+
+
+        <table class="table">
+            <thead class="thead-light">
+                <tr class="text-center">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Round)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TSPName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th style="border-radius:50px">
+                        @Html.DisplayNameFor(model => model.Amount)
+                    </th>
+                    <th>
+                        <a onclick="showInPopup('@Url.Action("AddOrEdit","Trainee",null,Context.Request.Scheme)','New Record')" class="btn btn-success text-white"><i class="fas fa-random"></i>Add More</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Round)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TSPName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        <div>
+                            <a onclick="showInPopup('@Url.Action("AddOrEdit","Trainee",new {id=item.TraineeId},Context.Request.Scheme)','Update Transaction')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                            <form asp-action="Delete" asp-route-id="@item.TraineeId" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                                <input type="hidden" asp-for="@item.TraineeId" />
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>

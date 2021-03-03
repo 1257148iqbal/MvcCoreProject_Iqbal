@@ -1,0 +1,80 @@
+﻿@model MvcCoreProject_Iqbal.Models.Trainee
+
+@{ Layout = null; }
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="AddOrEdit" asp-route-id="@Model.TraineeId" onsubmit="return jQueryAjaxPost(this);">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TraineeId" />
+            @*<input type="hidden" asp-for="Date" />*@
+
+
+            <div class="form-group">
+                <label asp-for="Round" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">123</div>
+                    </div>
+                    <input asp-for="Round" class="form-control" />
+                </div>
+                <span asp-validation-for="Round" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseName" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">ABC</div>
+                    </div>
+                    <input asp-for="CourseName" class="form-control" />
+                </div>
+                <span asp-validation-for="CourseName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TSPName" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">&#xf4d3;</div>
+                    </div>
+                    <input asp-for="TSPName" class="form-control" />
+                </div>
+                <span asp-validation-for="TSPName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BatchNumber" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">A/1</div>
+                    </div>
+                    <input asp-for="BatchNumber" class="form-control" />
+                </div>
+                <span asp-validation-for="BatchNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">$$$</div>
+                    </div>
+                    <input asp-for="Amount" class="form-control" />
+                </div>
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <div class="input-group" style="text-align:center">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">&#x1F4C5;</div>
+                    </div>
+                    <input asp-for="Date" class="form-control" />
+                </div>
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>           
+            <div class="form-group">
+                <div class="col-md-6 offset-md-3">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

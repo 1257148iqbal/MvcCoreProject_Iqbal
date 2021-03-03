@@ -1,0 +1,88 @@
+﻿@model IEnumerable<MvcCoreProject_Iqbal.Models.OrderMaster>
+
+@{
+    Layout = "_Layout";
+}
+<br />
+<p>
+    <button id="showPar" onclick="showPartial();"  class="btn btn-success">Create New</button>
+</p>
+
+
+
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    <a onclick="editCategory(@item.Id)">Edit</a> |
+                    <a onclick="getDetails(@item.Id);">Details</a> |
+                    <a onclick="return confirm('Are You sure??');" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div id="partial" style="display:none;">
+    @Html.RenderPartialAsync("Create", new MvcCoreProject_Iqbal.ViewModels.OrderMastViewModel());
+
+</div>
+
+
+
+
+<div class="row" >
+    <div id="itemsDiv">
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script>
+
+        function showPartial() {
+            document.getElementById("partial").style.display = "block";
+        };
+
+        function showDetail(id) {
+            document.getElementById("detail").style.display = "block";
+            
+        }
+
+                function getDetails(e) {
+            var link = '@Url.Action("Details", "Order", new { id = "-1" })';
+            link = link.replace("-1", e);
+            $("#itemsDiv").load(link);
+        }
+
+        function editCategory(e) {
+            var link = '@Url.Action("Edit", "Order", new { id = "-1" })';
+            link = link.replace("-1", e);
+            $("#itemsDiv").load(link);
+        }
+
+
+    </script>
+
+}

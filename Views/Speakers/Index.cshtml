@@ -1,0 +1,80 @@
+﻿@*@model IEnumerable<MvcCoreProject_Iqbal.Models.Speaker>*@
+@model PaginatedList<MvcCoreProject_Iqbal.Models.Speaker>
+@{ ViewData["Title"] = "Index"; }
+<h3 class="text-center text-uppercase">list of speakers</h3>
+<p>
+    <a asp-action="Create" class="btn btn-primary rounded-0"><i class="fa fa-plus-circle"></i> Add New</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ProfilePicture</th>
+            @*<th>@Html.DisplayNameFor(model => model.SpeakerName)</th>*@
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"><b>Speaker Name</b></a>
+            </th>
+            <th>Qualification</th>
+            <th>Experience</th>
+            @*<th>@Html.DisplayNameFor(model => model.SpeakingDate)</th>*@
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"><b>Joining Date</b></a>
+            </th>
+            <th>SpeakingTime</th>
+            <th>Venue</th>
+            <th>Action(s)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">
+                        <img src="~/Uploads/@item.ProfilePicture" class="img-thumbnail" height="100" width="100" asp-append-version="true" />
+                    </a>
+                </td>
+                <td>@item.SpeakerName</td>
+                <td>@item.Qualification</td>
+                <td>@item.Experience</td>
+                <td>@item.SpeakingDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.SpeakingTime.ToString("H:mm")</td>
+                <td>@item.Venue</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info rounded-0"><i class="fa fa-pencil-alt"></i>Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger rounded-0"><i class="fa fa-trash-alt"></i>Delete</a>
+                </td>
+            </tr>}
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
+
